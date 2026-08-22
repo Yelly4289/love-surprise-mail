@@ -1,0 +1,512 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Mali:wght@300;400;600;700&display=swap");
+@import "tailwindcss";
+@import "./styles/theme.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@plugin "tailwindcss-animate";
+@plugin "tailwindcss-react-aria-components";
+
+@custom-variant dark (&:where(.dark, .dark *, .dark-mode, .dark-mode *));
+@custom-variant label (& [data-label]);
+@custom-variant focus-input-within (&:has(input:focus));
+
+@utility scrollbar-hide {
+  &::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility transition-inherit-all {
+  transition-property: inherit;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+}
+
+:root {
+  font-family: "Mali", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #6f3340;
+  background: #fff7f5;
+  --background: oklch(0.985 0.008 20);
+  --foreground: oklch(0.32 0.06 10);
+  --card: oklch(0.995 0.004 20);
+  --card-foreground: oklch(0.32 0.06 10);
+  --popover: oklch(0.995 0.004 20);
+  --popover-foreground: oklch(0.32 0.06 10);
+  --primary: oklch(0.62 0.14 12);
+  --primary-foreground: oklch(0.99 0.005 20);
+  --secondary: oklch(0.94 0.03 12);
+  --secondary-foreground: oklch(0.38 0.08 10);
+  --muted: oklch(0.95 0.02 15);
+  --muted-foreground: oklch(0.55 0.05 12);
+  --accent: oklch(0.9 0.055 8);
+  --accent-foreground: oklch(0.35 0.08 10);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.025 15);
+  --input: oklch(0.9 0.025 15);
+  --ring: oklch(0.75 0.09 12);
+  --paper-tint: oklch(0.93 0.045 8);
+  --shadow-polaroid: 0 12px 26px -12px oklch(0.5 0.1 12 / 0.45);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.love-page {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding: 36px 24px;
+  background:
+    radial-gradient(circle at 20% 16%, rgba(255, 207, 217, 0.65), transparent 34rem),
+    radial-gradient(circle at 85% 82%, rgba(255, 223, 229, 0.72), transparent 30rem),
+    #fff8f5;
+}
+
+.paper-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.64;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(92, 52, 59, 0.035) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(92, 52, 59, 0.026) 0 1px, transparent 1px 4px);
+}
+
+.floating-hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: rgba(202, 83, 105, 0.18);
+  font-family: "Caveat", cursive;
+  font-size: clamp(2.4rem, 8vw, 5.8rem);
+}
+
+.floating-hearts span {
+  position: absolute;
+  animation: floatHeart 8s ease-in-out infinite;
+}
+
+.floating-hearts span:nth-child(1) {
+  top: 10%;
+  left: 10%;
+}
+
+.floating-hearts span:nth-child(2) {
+  top: 20%;
+  right: 12%;
+  animation-delay: -2s;
+}
+
+.floating-hearts span:nth-child(3) {
+  bottom: 14%;
+  left: 14%;
+  animation-delay: -4s;
+}
+
+.floating-hearts span:nth-child(4) {
+  right: 10%;
+  bottom: 22%;
+  animation-delay: -6s;
+}
+
+.letter-stage {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1080px);
+  min-height: calc(100dvh - 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-copy p,
+.intro-copy span {
+  margin: 0;
+  color: #9b6870;
+  font-size: 0.98rem;
+}
+
+.intro-copy h1 {
+  margin: 4px 0 0;
+  color: #bb4a60;
+  font-family: "Caveat", "Mali", cursive;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.intro-copy span {
+  display: block;
+  margin-top: 8px;
+  font-family: "Caveat", "Mali", cursive;
+  font-size: 1.35rem;
+}
+
+.surprise-area {
+  position: relative;
+  width: min(100%, 34rem);
+  height: 26rem;
+  display: grid;
+  place-items: center;
+  margin-top: 30px;
+}
+
+.memory-card {
+  position: absolute;
+  z-index: 1;
+  width: 9.8rem;
+  margin: 0;
+  padding: 0.7rem 0.7rem 0.42rem;
+  border-radius: 3px;
+  background: #fffefd;
+  box-shadow: var(--shadow-polaroid);
+  opacity: 0;
+  transform: translate(0, 0) rotate(0deg) scale(0.42);
+  transition:
+    transform 0.8s cubic-bezier(0.2, 1.2, 0.3, 1),
+    opacity 0.58s ease;
+}
+
+.memory-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.memory-card figcaption {
+  padding-top: 8px;
+  color: #6f3340;
+  font-family: "Caveat", "Mali", cursive;
+  font-size: 1.08rem;
+}
+
+.memory-two {
+  transition-delay: 120ms;
+}
+
+.memory-three {
+  transition-delay: 240ms;
+}
+
+.is-open .memory-card {
+  opacity: 1;
+}
+
+.is-open .memory-one {
+  transform: translate(-7.1rem, -4.7rem) rotate(-13deg) scale(1);
+}
+
+.is-open .memory-two {
+  transform: translate(6.9rem, -3.4rem) rotate(10deg) scale(1);
+}
+
+.is-open .memory-three {
+  transform: translate(0.2rem, 5.1rem) rotate(-3deg) scale(1);
+}
+
+.envelope {
+  position: absolute;
+  z-index: 4;
+  width: 13rem;
+  height: 8.4rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 18px 22px rgba(125, 62, 77, 0.22));
+  transform: translateY(0) scale(1);
+  transition:
+    transform 0.7s cubic-bezier(0.2, 1.2, 0.3, 1),
+    opacity 0.7s ease,
+    filter 0.3s ease;
+}
+
+.envelope:hover {
+  filter: drop-shadow(0 20px 24px rgba(125, 62, 77, 0.25)) brightness(1.02);
+}
+
+.is-open .envelope {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(34px) scale(0.88);
+}
+
+.envelope-back,
+.envelope-front,
+.envelope-flap,
+.envelope-letter {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+
+.envelope-back {
+  border: 1px solid rgba(146, 81, 95, 0.22);
+  background: linear-gradient(160deg, #fff8f5, #f7cfd7);
+}
+
+.envelope-letter {
+  inset: auto 1rem 1.1rem;
+  height: 5.6rem;
+  border-radius: 5px;
+  background:
+    linear-gradient(90deg, transparent 0 16%, rgba(211, 120, 137, 0.18) 16% 17%, transparent 17%),
+    repeating-linear-gradient(0deg, transparent 0 18px, rgba(196, 96, 114, 0.18) 18px 19px),
+    #fffdf9;
+  transform: translateY(16px);
+  transition: transform 0.62s ease;
+}
+
+.is-open .envelope-letter {
+  transform: translateY(-34px);
+}
+
+.envelope-front {
+  overflow: hidden;
+}
+
+.envelope-front::before,
+.envelope-front::after {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: linear-gradient(145deg, #fff1f4, #efbdc8);
+}
+
+.envelope-front::before {
+  left: -50%;
+  clip-path: polygon(0 100%, 100% 50%, 100% 100%);
+}
+
+.envelope-front::after {
+  right: -50%;
+  clip-path: polygon(0 50%, 100% 100%, 0 100%);
+}
+
+.envelope-flap {
+  z-index: 2;
+  height: 5rem;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, #f7c9d2, #fff8f5);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform 0.62s ease;
+}
+
+.is-open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope-heart {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #c84d64;
+  font-family: "Caveat", cursive;
+  font-size: 2.1rem;
+  transform: translateY(6px);
+}
+
+.love-note {
+  width: max-content;
+  max-width: calc(100vw - 72px);
+  margin-top: 4px;
+  padding: 0 10px;
+  color: #ad4358;
+  font-family: "Caveat", "Mali", cursive;
+  font-size: clamp(1.45rem, 2.45vw, 1.9rem);
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s ease 0.42s,
+    transform 0.7s ease 0.42s;
+}
+
+.love-note p + p {
+  margin-top: 12px;
+}
+
+.love-note p {
+  white-space: nowrap;
+}
+
+.is-open .love-note {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heart-row {
+  margin-top: 14px;
+  font-family: "Mali", sans-serif;
+  font-size: 1.2rem;
+}
+
+.reset-button {
+  min-height: 36px;
+  margin-top: 22px;
+  padding: 0 14px;
+  border: 1px solid rgba(188, 75, 96, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  color: #9d4052;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.reset-button:hover {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: "Geist Variable", sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
+}
+
+@keyframes floatHeart {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(5deg);
+  }
+}
+
+@media (max-width: 520px) {
+  .love-page {
+    padding: 28px 18px;
+  }
+
+  .letter-stage {
+    width: 100%;
+    min-height: calc(100dvh - 56px);
+  }
+
+  .intro-copy h1 {
+    font-size: clamp(2.5rem, 12vw, 3.1rem);
+  }
+
+  .surprise-area {
+    height: 25rem;
+    margin-top: 22px;
+  }
+
+  .memory-card {
+    width: 8.6rem;
+  }
+
+  .is-open .memory-one {
+    transform: translate(-5.7rem, -4.55rem) rotate(-13deg) scale(1);
+  }
+
+  .is-open .memory-two {
+    transform: translate(5.7rem, -3.2rem) rotate(10deg) scale(1);
+  }
+
+  .is-open .memory-three {
+    transform: translate(0.15rem, 4.8rem) rotate(-3deg) scale(1);
+  }
+
+  .envelope {
+    width: 12rem;
+    height: 7.7rem;
+  }
+
+  .love-note {
+    width: min(100%, 25rem);
+    max-width: 100%;
+    margin-top: 0;
+    font-size: clamp(1.18rem, 6vw, 1.45rem);
+    line-height: 1.58;
+  }
+
+  .love-note p {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+}
